@@ -1,8 +1,10 @@
-﻿namespace Data
+﻿using Data;
+
+namespace BusinessLogic.UserManagement
 {
-    public class UserDataModel : IUniqueModel
+    public class UserServiceModel : IUniqueModel
     {
-        public UserDataModel(int id, string login, string password, UserStatus userStatus)
+        public UserServiceModel(int id, string login, string password, UserStatus userStatus)
         {
             Id = id;
             Login = login;

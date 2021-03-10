@@ -1,4 +1,4 @@
-﻿namespace Data.ShavermaEmbeddedData
+﻿namespace Data
 {
     public class ShavermaDataModel : IUniqueModel
     {

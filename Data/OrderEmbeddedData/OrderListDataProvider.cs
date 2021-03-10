@@ -2,11 +2,16 @@
 
 namespace Data.OrderEmbeddedData
 {
-    public class OrderListDataProvider : ListDataProvider<Order>
+    public class OrderListDataProvider : ListDataProvider<OrderDataModel>
     {
-        protected override IList<Order> SeedList()
+        protected override IList<OrderDataModel> SeedList()
         {
-            return new List<Order>();
+            return new List<OrderDataModel>();
+        }
+
+        public override int Create(OrderDataModel model)
+        {
+            return base.Create(model);
         }
     }
 }

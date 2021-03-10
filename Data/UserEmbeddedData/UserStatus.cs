@@ -1,4 +1,4 @@
-﻿namespace Data.UserEmbeddedData
+﻿namespace Data
 {
     public enum UserStatus
     {

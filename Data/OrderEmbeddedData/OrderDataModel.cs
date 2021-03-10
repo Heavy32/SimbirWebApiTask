@@ -1,13 +1,11 @@
-﻿using Data.ShavermaEmbeddedData;
-using Data.UserEmbeddedData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Data.OrderEmbeddedData
+namespace Data
 {
-    public class Order : IUniqueModel
+    public class OrderDataModel : IUniqueModel
     {
-        public Order(int id, UserDataModel user, IList<ShavermaDataModel> shavermas, float price, DateTime time, string adress)
+        public OrderDataModel(int id, UserDataModel user, IList<ShavermaDataModel> shavermas, float price, DateTime time, string adress)
         {
             Id = id;
             User = user;
