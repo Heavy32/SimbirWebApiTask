@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using NLog;
 
 namespace BusinessLogic.UserManagement
 {
@@ -9,9 +10,11 @@ namespace BusinessLogic.UserManagement
     {
         private readonly IDataProvider<UserDataModel> userRepository;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public UserCRUDService(IDataProvider<UserDataModel> userRepository, IMapper mapper)
+        public UserCRUDService(IDataProvider<UserDataModel> userRepository, IMapper mapper, ILogger logger)
         {
+            this.logger = logger;
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
@@ -21,7 +24,8 @@ namespace BusinessLogic.UserManagement
             UserDataModel userFromDb = userRepository.GetAll().FirstOrDefault(u => u.Login == item.Login);
             if (userFromDb != null)
             {
-                return new ServiceResult<UserServiceModel>(StatusCode.ItemAlreadyCreated, "User is with such name is already exist");
+                logger.Error("User with such name is already exist");
+                return new ServiceResult<UserServiceModel>(StatusCode.ItemAlreadyCreated, "User with such name is already exist");
             }
 
             var newUser = new UserDataModel(

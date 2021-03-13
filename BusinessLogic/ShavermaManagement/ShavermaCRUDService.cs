@@ -1,4 +1,5 @@
 ﻿using Data;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace BusinessLogic.ShavermaManagement
     {
         private readonly IDataProvider<ShavermaDataModel> shavermaRepository;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public ShavermaCRUDService(IDataProvider<ShavermaDataModel> shavermaRepository, IMapper mapper)
+        public ShavermaCRUDService(IDataProvider<ShavermaDataModel> shavermaRepository, IMapper mapper, ILogger logger)
         {
             this.shavermaRepository = shavermaRepository;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         public ServiceResult<ShavermaServiceModel> Create(ShavermaCreateModel item)
@@ -33,6 +36,7 @@ namespace BusinessLogic.ShavermaManagement
             ShavermaDataModel shavermaFromDb = shavermaRepository.Get(id);
             if (shavermaFromDb == null)
             {
+                logger.Error("Shaverma is not found");
                 return new ServiceResult<ShavermaServiceModel>(StatusCode.ItemNotFound, "Shaverma is not found");
             }
 
@@ -46,6 +50,7 @@ namespace BusinessLogic.ShavermaManagement
             ShavermaDataModel shavermaFromDb = shavermaRepository.Get(id);
             if (shavermaFromDb == null)
             {
+                logger.Error("Shaverma is not found");
                 return new ServiceResult<ShavermaServiceModel>(StatusCode.ItemNotFound, "Shaverma is not found");
             }
 
@@ -72,6 +77,7 @@ namespace BusinessLogic.ShavermaManagement
             ShavermaDataModel shavermaFromDb = shavermaRepository.Get(id);
             if (shavermaFromDb == null)
             {
+                logger.Error("Shaverma is not found");
                 return new ServiceResult<ShavermaServiceModel>(StatusCode.ItemNotFound, "Shaverma is not found");
             }
 

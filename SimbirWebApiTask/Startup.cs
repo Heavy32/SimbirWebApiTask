@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace SimbirWebApiTask
 
             services.AddSingleton<IMapper, AutoMapperImplementation>();
             services.AddSingleton<IServiceResultStatusToResponseConverter, ServiceResultCodeToResponseConverter>();
+            services.AddSingleton<ILogger>(LogManager.GetCurrentClassLogger());
 
             services.AddTransient<IUserCRUDService, UserCRUDService>();
             services.AddTransient<IShavermaCRUDService, ShavermaCRUDService>();
