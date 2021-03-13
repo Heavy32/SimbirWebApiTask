@@ -1,20 +1,58 @@
-﻿using BusinessLogic.UserManagement;
+﻿using BusinessLogic;
+using BusinessLogic.UserManagement;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimbirWebApiTask.UserController
 {
-    public class UserController : Controller
+    [Route("users")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly IUserCRUDService userService;
         private readonly IServiceResultStatusToResponseConverter responseConverter;
+        private readonly IMapper mapper;
 
-        public IActionResult Index()
+        public UserController(IUserCRUDService userService, IServiceResultStatusToResponseConverter responseConverter, IMapper mapper)
         {
-            return View();
+            this.userService = userService;
+            this.responseConverter = responseConverter;
+            this.mapper = mapper;
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
+        {
+            return responseConverter.GetResponse(userService.Get(id));
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            return responseConverter.GetResponse(userService.Delete(id));
+        }
+
+        [HttpPost]
+        public IActionResult Create(UserViewCreateModel user)
+        {
+            return responseConverter.
+                GetResponse(
+                    userService.Create(
+                        mapper.Map<UserViewCreateModel, UserServiceCreateModel>(user)), Request.Path.Value);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult Update(int id, UserViewUpdateModel user)
+        {
+            return responseConverter.
+                GetResponse(
+                userService.Update(
+                    id, mapper.Map<UserViewUpdateModel, UserServiceModel>(user)));
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return responseConverter.GetResponse(userService.GetAll());
         }
     }
 }

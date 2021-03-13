@@ -68,8 +68,7 @@ namespace BusinessLogic.UserManagement
             {
                 return new ServiceResult<IReadOnlyCollection<UserServiceModel>>(StatusCode.NoContent);
             }
-
-            return new ServiceResult<IReadOnlyCollection<UserServiceModel>>(StatusCode.ItemRecieved, users.Select(user => mapper.Map<UserDataModel, UserServiceModel>(user)) as IReadOnlyCollection<UserServiceModel>);
+            return new ServiceResult<IReadOnlyCollection<UserServiceModel>>(StatusCode.ItemRecieved, users.Select(user => mapper.Map<UserDataModel, UserServiceModel>(user)).ToList().AsReadOnly());
         }
 
         public ServiceResult<UserServiceModel> Update(int id, UserServiceModel item)
