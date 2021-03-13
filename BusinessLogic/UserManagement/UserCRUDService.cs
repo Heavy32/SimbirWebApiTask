@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BusinessLogic.UserManagement
 {
-    public class UserCRUDService : ICRUDService<UserServiceModel>
+    public class UserCRUDService : IUserCRUDService
     {
         private readonly IDataProvider<UserDataModel> userRepository;
         private readonly IMapper mapper;
@@ -56,7 +56,7 @@ namespace BusinessLogic.UserManagement
                 return new ServiceResult<UserServiceModel>(StatusCode.ItemNotFound, "User is not found");
             }
 
-            var user = mapper.Map<UserDataModel,UserServiceModel>(userFromDb);
+            var user = mapper.Map<UserDataModel, UserServiceModel>(userFromDb);
 
             return new ServiceResult<UserServiceModel>(StatusCode.ItemRecieved, user);
         }
